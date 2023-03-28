@@ -18,7 +18,7 @@ class FlutterMaps extends StatelessWidget {
         scaffoldBackgroundColor: Colors.lightBlue[100],
       ),
       debugShowCheckedModeBanner: false,
-      home: CurrentLocationScreen(),
+      home: MapSample(),
     );
   }
 }

@@ -21,7 +21,7 @@ class MapSampleState extends State<MapSample> {
 
   static const CameraPosition _kLake = CameraPosition(
       bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
+      target: LatLng(31.240768, 29.963070),
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
 
@@ -29,7 +29,7 @@ class MapSampleState extends State<MapSample> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GoogleMap(
-        mapType: MapType.hybrid,
+        mapType: MapType.normal,
         initialCameraPosition: _kGooglePlex,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
@@ -37,7 +37,7 @@ class MapSampleState extends State<MapSample> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToTheLake,
-        label: const Text('To the lake!'),
+        label: const Text('متحف المجوهرات الملكيه'),
         icon: const Icon(Icons.directions_boat),
       ),
     );
