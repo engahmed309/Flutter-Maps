@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_maps/screens/home_screen.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapSample extends StatefulWidget {
@@ -29,69 +30,142 @@ class MapSampleState extends State<MapSample> {
       target: LatLng(31.212330, 29.883490),
       tilt: 59.440717697143555,
       zoom: 15.151926040649414);
+  // List<DropdownMenuItem> dropDownPlaces = [
+  //   DropdownMenuItem(child: Text("متحف المجوهرات الملكية")),
+  //   DropdownMenuItem(child: Text("قلعة قايتباي")),
+  //   DropdownMenuItem(child: Text("المتحف المصري"))
+  //];
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          GoogleMap(
-            mapType: MapType.normal,
-            initialCameraPosition: _kGooglePlex,
-            onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
-            },
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(.3),
-                    borderRadius: BorderRadius.circular(30)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    TextButton.icon(
-                      onPressed: () {
-                        _changePosition(_musemposition);
-                      },
-                      icon: Icon(
-                        Icons.museum,
-                        color: Colors.black,
-                      ),
-                      label: Text("متحف المجوهرات الملكيه",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16)),
-                    ),
-                    TextButton.icon(
-                      onPressed: () {
-                        _changePosition(_castlePosition);
-                      },
-                      icon: Icon(
-                        Icons.castle_rounded,
-                        color: Colors.black,
-                      ),
-                      label: Text("قلعة قايتباي",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16)),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          )
-        ],
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.black.withOpacity(.5),
+        title: Text(
+          "Places Helper",
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+        ),
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: _goToTheLake,
-      //   label: const Text('متحف المجوهرات الملكيه'),
-      //   icon: const Icon(Icons.directions_boat),
-      // ),
+      drawer: SafeArea(
+        child: Drawer(
+          backgroundColor: Colors.black54,
+          child: Column(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(30),
+                    bottomLeft: Radius.circular(10),
+                  ),
+                  child: Image.network(
+                    "https://www.vetogate.com/UploadCache/libfiles/442/8/600x338o/716.jpg",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Card(
+                  color: Colors.black.withOpacity(.0),
+                  elevation: 6,
+                  child: InkWell(
+                    onTap: () {
+                      _changePosition(_castlePosition);
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(7),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Row(
+                        children: [
+                          Icon(Icons.castle,
+                              color: Color.fromARGB(255, 255, 119, 0)),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                "Fort Qaitbey",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
+                              SizedBox(
+                                height: 7,
+                              ),
+                              Text(
+                                "قلعة قايتباي",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Card(
+                  color: Colors.black.withOpacity(.0),
+                  elevation: 6,
+                  child: InkWell(
+                    onTap: () {
+                      _changePosition(_musemposition);
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(7),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(30)),
+                      child: Row(
+                        children: [
+                          Icon(Icons.museum,
+                              color: Color.fromARGB(255, 255, 119, 0)),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Column(
+                            children: [
+                              Text(
+                                "Royal Jewelry Museum",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
+                              SizedBox(
+                                height: 7,
+                              ),
+                              Text(
+                                "متحف المجوهرات الملكية",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ]),
+        ),
+      ),
+      body: GoogleMap(
+        mapType: MapType.normal,
+        initialCameraPosition: _kGooglePlex,
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+      ),
     );
   }
 
